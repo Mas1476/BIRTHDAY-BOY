@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🎉 Happy Birthday Abdullah 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0f2027, #000);
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  padding: 80px 15px;
+}
+
+.glow {
+  font-size: 40px;
+  color: #00ffe1;
+  text-shadow: 0 0 10px #00ffe1, 0 0 30px #00ffe1;
+}
+
+.name {
+  font-size: 24px;
+  color: #ffcc00;
+}
+
+#countdown {
+  margin: 20px 0;
+  font-size: 22px;
+  color: #ff6bcb;
+}
+
+.message {
+  max-width: 520px;
+  margin: 20px auto;
+  font-size: 17px;
+}
+
+/* BUTTON */
+button {
+  padding: 12px 26px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ff0066, #ffcc00);
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* WISH SECTION */
+.wish-box {
+  margin: 60px auto 0;
+  max-width: 500px;
+  position: relative;
+}
+
+.wish-box h3 {
+  color: #00ffe1;
+}
+
+.wish-box input,
+.wish-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+}
+
+#wishes {
+  margin-top: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.wish-card {
+  background: rgba(255,255,255,0.1);
+  border-left: 4px solid #00ffe1;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+/* LOCK OVERLAY */
+.lock {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+.lock span {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+/* CONFETTI */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 14px;
+  color: #aaa;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+  <h1 class="glow">🎉 HAPPY BIRTHDAY TO ME 🎉</h1>
+  <div class="name">Mian Abdullah Suleman</div>
+
+  <div id="countdown">⏳ Loading...</div>
+
+  <p class="message">
+    Another year older. Another level unlocked 🚀<br>
+    IT Student | Cybersecurity Learner | Future White Hat Hacker 💻
+  </p>
+
+  <button onclick="playMusic()">🎶 Play Birthday Vibe</button>
+
+  <!-- WISH SECTION -->
+  <div class="wish-box" id="wishBox">
+    <h3>💌 Friends Birthday Wishes</h3>
+
+    <input type="text" id="name" placeholder="Your Name" disabled>
+    <textarea id="wish" placeholder="Your Message" disabled></textarea>
+    <button onclick="addWish()" disabled id="wishBtn">Send Wish 🎉</button>
+
+    <div id="wishes"></div>
+
+    <!-- LOCK -->
+    <div class="lock" id="lock">
+      <span>🔒</span>
+      <p>Wishes locked till 20 February 🎂</p>
+    </div>
+  </div>
+
+  <footer>
+    © 20 February | Birthday Blast Project
+  </footer>
+</div>
+
+<audio id="music">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5fbd5c1a8c.mp3">
+</audio>
+
+<script>
+/* DATE */
+const birthday = new Date("February 20, 2026 00:00:00").getTime();
+const cd = document.getElementById("countdown");
+
+/* COUNTDOWN + UNLOCK */
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = birthday - now;
+
+  if (diff <= 0) {
+    cd.innerHTML = "🎂 TODAY IS MY BIRTHDAY 🎂";
+    unlockWishes();
+    return;
+  }
+
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
+
+  cd.innerHTML = `⏳ ${d} Days ${h}h ${m}m ${s}s`;
+}, 1000);
+
+/* UNLOCK FUNCTION */
+function unlockWishes() {
+  document.getElementById("lock").style.display = "none";
+  document.getElementById("name").disabled = false;
+  document.getElementById("wish").disabled = false;
+  document.getElementById("wishBtn").disabled = false;
+}
+
+/* MUSIC */
+function playMusic() {
+  document.getElementById("music").play();
+}
+
+/* WISHES */
+function addWish() {
+  const name = document.getElementById("name").value.trim();
+  const wish = document.getElementById("wish").value.trim();
+  if (!name || !wish) return;
+
+  const data = JSON.parse(localStorage.getItem("wishes")) || [];
+  data.push({ name, wish });
+  localStorage.setItem("wishes", JSON.stringify(data));
+
+  document.getElementById("name").value = "";
+  document.getElementById("wish").value = "";
+  showWishes();
+}
+
+function showWishes() {
+  const box = document.getElementById("wishes");
+  box.innerHTML = "";
+  const data = JSON.parse(localStorage.getItem("wishes")) || [];
+  data.forEach(w => {
+    const div = document.createElement("div");
+    div.className = "wish-card";
+    div.innerHTML = `<strong>💖 ${w.name}</strong><br>${w.wish}`;
+    box.appendChild(div);
+  });
+}
+showWishes();
+
+/* CONFETTI */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+for (let i = 0; i < 160; i++) {
+  confetti.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 6 + 3,
+    d: Math.random() * 4 + 2
+  });
+}
+
+function drawConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ffcc00";
+  confetti.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    p.y += p.d;
+    if (p.y > canvas.height) {
+      p.y = -10;
+      p.x = Math.random() * canvas.width;
+    }
+  });
+  requestAnimationFrame(drawConfetti);
+}
+drawConfetti();
+</script>
+
+</body>
+</html>
