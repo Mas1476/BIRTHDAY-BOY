@@ -16,6 +16,7 @@ body {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   text-align: center;
+  cursor: none; /* hide default cursor for trail */
 }
 
 /* Container */
@@ -29,27 +30,35 @@ body {
 
 /* HEADINGS */
 h1 {
-  font-size: 36px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 700;
   color: #ff4da6;
   text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff66b3, 0 0 30px #ff99cc;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #ff4da6,0 0 10px #ff66b3; }
+  50% { text-shadow: 0 0 15px #ff4da6,0 0 25px #ff66b3,0 0 35px #ff99cc; }
+  100% { text-shadow: 0 0 5px #ff4da6,0 0 10px #ff66b3; }
 }
 
 .name {
-  font-size: 20px;
+  font-size: 22px;
   color: #ff99cc;
   margin-top: 6px;
+  text-shadow: 0 0 5px #ff66b3;
 }
 
-/* COUNTDOWN */
+/* Countdown */
 #countdown {
   margin: 20px 0;
-  font-size: 20px;
+  font-size: 22px;
   color: #ff80aa;
   font-weight: 500;
 }
 
-/* MESSAGE */
+/* Message */
 .message {
   max-width: 520px;
   margin: 20px auto;
@@ -59,7 +68,7 @@ h1 {
   text-shadow: 0 0 5px #ff66b3;
 }
 
-/* BUTTON */
+/* Button */
 button {
   padding: 10px 24px;
   font-size: 14px;
@@ -77,7 +86,7 @@ button:hover {
   background: #ff66b3;
 }
 
-/* WISHES */
+/* Wishes */
 .wish-box {
   margin-top: 60px;
   max-width: 500px;
@@ -85,6 +94,7 @@ button:hover {
   margin-right: auto;
   position: relative;
   text-align: left;
+  z-index: 2;
 }
 
 .wish-box h3 {
@@ -102,7 +112,6 @@ input, textarea {
   border: 1px solid #ff3399;
   border-radius: 6px;
   color: #fff;
-  font-family: 'Inter', sans-serif;
 }
 
 #wishes {
@@ -119,9 +128,15 @@ input, textarea {
   margin-bottom: 8px;
   font-size: 14px;
   text-shadow: 0 0 3px #ff66b3;
+  animation: pop 0.3s ease forwards;
 }
 
-/* LOCK */
+@keyframes pop {
+  0% { transform: scale(0); opacity:0; }
+  100% { transform: scale(1); opacity:1; }
+}
+
+/* Lock */
 .lock {
   position: absolute;
   inset: 0;
@@ -139,14 +154,14 @@ input, textarea {
   margin-bottom: 6px;
 }
 
-/* FOOTER */
+/* Footer */
 footer {
   margin-top: 50px;
   font-size: 12px;
   color: #ff99cc;
 }
 
-/* CANVAS */
+/* Canvas */
 canvas {
   position: fixed;
   inset: 0;
@@ -160,6 +175,7 @@ canvas {
 
 <canvas id="confetti"></canvas>
 <canvas id="fireworks"></canvas>
+<canvas id="cursorTrail"></canvas>
 
 <div class="container">
   <h1>🎉 HAPPY BIRTHDAY TO ME 🎉</h1>
@@ -174,7 +190,6 @@ canvas {
 
   <button onclick="playMusic()">▶ Play Birthday Music</button>
 
-  <!-- WISH SECTION -->
   <div class="wish-box">
     <h3>💌 Friends Birthday Wishes</h3>
 
@@ -191,7 +206,7 @@ canvas {
   </div>
 
   <footer>
-    © Birthday Blast
+    © Birthday Blast Ultimate By ABDULLAH SULEMAN 😎 
   </footer>
 </div>
 
@@ -200,7 +215,7 @@ canvas {
 </audio>
 
 <script>
-/* COUNTDOWN + UNLOCK */
+/* Countdown + Unlock + Fireworks */
 const birthday = new Date("February 20, 2026 00:00:00").getTime();
 const countdown = document.getElementById("countdown");
 
@@ -223,40 +238,39 @@ setInterval(() => {
   countdown.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
 },1000);
 
-/* UNLOCK WISHES */
 function unlockWishes() {
-  document.getElementById("lock").style.display = "none";
-  document.getElementById("name").disabled = false;
-  document.getElementById("wish").disabled = false;
-  document.getElementById("wishBtn").disabled = false;
+  document.getElementById("lock").style.display="none";
+  document.getElementById("name").disabled=false;
+  document.getElementById("wish").disabled=false;
+  document.getElementById("wishBtn").disabled=false;
 }
 
-/* MUSIC */
+/* Music */
 function playMusic() {
   const audio = document.getElementById("music");
-  audio.volume = 0.7;
+  audio.volume=0.7;
   audio.play();
 }
 
-/* WISHES */
-function addWish() {
-  const name = document.getElementById("name").value.trim();
-  const wish = document.getElementById("wish").value.trim();
-  if(!name || !wish) return;
+/* Wishes */
+function addWish(){
+  const name=document.getElementById("name").value.trim();
+  const wish=document.getElementById("wish").value.trim();
+  if(!name||!wish) return;
 
   const data = JSON.parse(localStorage.getItem("wishes")) || [];
   data.push({name,wish});
-  localStorage.setItem("wishes", JSON.stringify(data));
+  localStorage.setItem("wishes",JSON.stringify(data));
 
   document.getElementById("name").value="";
   document.getElementById("wish").value="";
   showWishes();
 }
 
-function showWishes() {
-  const box = document.getElementById("wishes");
+function showWishes(){
+  const box=document.getElementById("wishes");
   box.innerHTML="";
-  const data = JSON.parse(localStorage.getItem("wishes")) || [];
+  const data=JSON.parse(localStorage.getItem("wishes"))||[];
   data.forEach(w=>{
     const div=document.createElement("div");
     div.className="wish-card";
@@ -266,22 +280,22 @@ function showWishes() {
 }
 showWishes();
 
-/* CONFETTI + HEARTS */
+/* Confetti + Hearts */
 const canvas=document.getElementById("confetti");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particles=[];
-for(let i=0;i<200;i++){
-  const isHeart = Math.random()<0.5;
+for(let i=0;i<250;i++){
+  const isHeart=Math.random()<0.5;
   particles.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
     r:Math.random()*4+2,
     d:Math.random()*3+1,
     color:`hsl(${Math.random()*360},80%,70%)`,
-    type: isHeart ? 'heart':'circle'
+    type:isHeart?'heart':'circle'
   });
 }
 
@@ -289,91 +303,94 @@ function drawParticle(p){
   ctx.fillStyle=p.color;
   ctx.beginPath();
   if(p.type==='circle'){
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  }else{
-    const top = p.r;
-    ctx.moveTo(p.x, p.y);
-    ctx.bezierCurveTo(p.x, p.y-top, p.x-p.r, p.y-top, p.x-p.r, p.y);
-    ctx.bezierCurveTo(p.x-p.r, p.y+p.r, p.x, p.y+p.r+top, p.x, p.y+top*1.5);
-    ctx.bezierCurveTo(p.x, p.y+p.r+top, p.x+p.r, p.y+p.r, p.x+p.r, p.y);
-    ctx.bezierCurveTo(p.x+p.r, p.y-top, p.x, p.y-top, p.x, p.y);
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+  } else {
+    const top=p.r;
+    ctx.moveTo(p.x,p.y);
+    ctx.bezierCurveTo(p.x,p.y-top,p.x-p.r,p.y-top,p.x-p.r,p.y);
+    ctx.bezierCurveTo(p.x-p.r,p.y+p.r,p.x,p.y+p.r+top,p.x,p.y+top*1.5);
+    ctx.bezierCurveTo(p.x,p.y+p.r+top,p.x+p.r,p.y+p.r,p.x+p.r,p.y);
+    ctx.bezierCurveTo(p.x+p.r,p.y-top,p.x,p.y-top,p.x,p.y);
     ctx.fill();
   }
 }
 
-function animateConfetti() {
+function animateConfetti(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{
     drawParticle(p);
     p.y+=p.d;
-    if(p.y>canvas.height){
-      p.y=-10;
-      p.x=Math.random()*canvas.width;
-    }
+    if(p.y>canvas.height){ p.y=-10; p.x=Math.random()*canvas.width; }
   });
   requestAnimationFrame(animateConfetti);
 }
 animateConfetti();
 
-window.addEventListener("resize",()=>{
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-});
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight});
 
-/* FIREWORKS */
+/* Fireworks */
 function startFireworks(){
-  const fwCanvas = document.getElementById("fireworks");
-  const fctx = fwCanvas.getContext("2d");
-  fwCanvas.width = window.innerWidth;
-  fwCanvas.height = window.innerHeight;
+  const fwCanvas=document.getElementById("fireworks");
+  const fctx=fwCanvas.getContext("2d");
+  fwCanvas.width=window.innerWidth;
+  fwCanvas.height=window.innerHeight;
 
   class Firework{
     constructor(){
-      this.x = Math.random()*fwCanvas.width;
-      this.y = Math.random()*fwCanvas.height/2;
-      this.particles = [];
+      this.x=Math.random()*fwCanvas.width;
+      this.y=Math.random()*fwCanvas.height/2;
+      this.particles=[];
       for(let i=0;i<30;i++){
-        const angle = Math.random()*2*Math.PI;
-        const speed = Math.random()*4+2;
-        this.particles.push({
-          x:this.x,
-          y:this.y,
-          vx: Math.cos(angle)*speed,
-          vy: Math.sin(angle)*speed,
-          color:`hsl(${Math.random()*360},80%,70%)`,
-          alpha:1
-        });
+        const angle=Math.random()*2*Math.PI;
+        const speed=Math.random()*4+2;
+        this.particles.push({x:this.x,y:this.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,color:`hsl(${Math.random()*360},80%,70%)`,alpha:1});
       }
     }
     draw(){
       this.particles.forEach(p=>{
-        fctx.fillStyle = p.color;
-        fctx.globalAlpha = p.alpha;
+        fctx.fillStyle=p.color;
+        fctx.globalAlpha=p.alpha;
         fctx.beginPath();
-        fctx.arc(p.x,p.y,3,0,Math.PI*2);
-        fctx.fill();
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.02;
+        fctx.arc(p.x,p.y,3,0,Math.PI*2); fctx.fill();
+        p.x+=p.vx; p.y+=p.vy; p.alpha-=0.02;
       });
     }
   }
 
   const fireworksArray=[];
-  for(let i=0;i<8;i++){
-    fireworksArray.push(new Firework());
-  }
+  for(let i=0;i<8;i++) fireworksArray.push(new Firework());
 
   function animateFW(){
     fctx.clearRect(0,0,fwCanvas.width,fwCanvas.height);
-    fireworksArray.forEach(f=>{
-      f.draw();
-    });
+    fireworksArray.forEach(f=>f.draw());
     requestAnimationFrame(animateFW);
   }
   animateFW();
 }
+
+/* Cursor Neon Trail */
+const trailCanvas=document.getElementById("cursorTrail");
+const tctx=trailCanvas.getContext("2d");
+trailCanvas.width=window.innerWidth;
+trailCanvas.height=window.innerHeight;
+let trails=[];
+document.addEventListener("mousemove",e=>{
+  trails.push({x:e.clientX,y:e.clientY,alpha:1});
+});
+function animateTrail(){
+  tctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);
+  trails.forEach((t,i)=>{
+    tctx.fillStyle=`rgba(255,77,166,${t.alpha})`;
+    tctx.beginPath();
+    tctx.arc(t.x,t.y,5,0,Math.PI*2); tctx.fill();
+    t.alpha-=0.03;
+    if(t.alpha<=0) trails.splice(i,1);
+  });
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+window.addEventListener("resize",()=>{trailCanvas.width=window.innerWidth; trailCanvas.height=window.innerHeight});
 </script>
 
 </body>
