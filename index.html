@@ -2,350 +2,209 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>🎉 Happy Birthday Abdullah 🎉</title>
+<title>Birthday Blast – Abdullah 🎉</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  background: #0c001a;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-  text-align: center;
-  cursor: none;
+*{
+  margin:0; padding:0;
+  font-family:'Poppins',sans-serif;
+  box-sizing:border-box;
+}
+body{
+  background: radial-gradient(circle at top, #330000, #000);
+  color:#fff;
+  overflow:hidden;
+  text-align:center;
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 80px 16px;
-  position: relative;
-  z-index: 2;
+/* INTRO TEXT */
+#intro{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:3rem;
+  font-weight:700;
+  color:#ff4d6d;
+  background:#000;
+  z-index:9999;
+  animation:fadeOut 3.5s forwards;
+}
+@keyframes fadeOut{
+  0%{opacity:1}
+  70%{opacity:1}
+  100%{opacity:0;visibility:hidden}
 }
 
-h1 {
-  font-size: 40px;
-  font-weight: 700;
-  color: #ff4da6;
-  text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff66b3, 0 0 30px #ff99cc;
-  animation: glow 2s infinite alternate;
+/* MAIN */
+#main{
+  opacity:0;
+  animation:showMain 1s forwards;
+  animation-delay:3.6s;
+}
+@keyframes showMain{
+  to{opacity:1}
 }
 
-@keyframes glow {
-  0% { text-shadow: 0 0 5px #ff4da6,0 0 10px #ff66b3; }
-  50% { text-shadow: 0 0 15px #ff4da6,0 0 25px #ff66b3,0 0 35px #ff99cc; }
-  100% { text-shadow: 0 0 5px #ff4da6,0 0 10px #ff66b3; }
+h1{
+  margin-top:40px;
+  font-size:2.5rem;
+  color:#ff6b81;
+  text-shadow:0 0 20px #ff4d6d;
 }
 
-.name {
-  font-size: 22px;
-  color: #ff99cc;
-  margin-top: 6px;
-  text-shadow: 0 0 5px #ff66b3;
+#countdown{
+  margin:20px;
+  font-size:1.3rem;
+  color:#ffb3c6;
 }
 
-#countdown {
-  margin: 20px 0;
-  font-size: 22px;
-  color: #ff80aa;
-  font-weight: 500;
+/* GIFS */
+.gifs{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin:30px;
+}
+.gifs iframe{
+  border-radius:15px;
+  box-shadow:0 0 15px #ff4d6d;
 }
 
-.message {
-  max-width: 520px;
-  margin: 20px auto;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #ffb3c6;
-  text-shadow: 0 0 5px #ff66b3;
+/* MUSIC BUTTON */
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d6d;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 0 20px #ff4d6d;
 }
 
-button {
-  padding: 10px 24px;
-  font-size: 14px;
-  border-radius: 10px;
-  border: none;
-  background: #ff3399;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: transform 0.2s, background 0.2s;
+/* RAIN ELEMENTS */
+.heart,.rose{
+  position:fixed;
+  top:-10%;
+  font-size:20px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh)}
 }
 
-button:hover {
-  transform: scale(1.05);
-  background: #ff66b3;
-}
-
-.wish-box {
-  margin-top: 60px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  text-align: left;
-  z-index: 2;
-}
-
-.wish-box h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  color: #ff4da6;
-  text-shadow: 0 0 5px #ff66b3;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  background: #2b002b;
-  border: 1px solid #ff3399;
-  border-radius: 6px;
-  color: #fff;
-}
-
-#wishes {
-  margin-top: 15px;
-  max-height: 260px;
-  overflow-y: auto;
-}
-
-.wish-card {
-  background: #330033;
-  border: 1px solid #ff66b3;
-  padding: 10px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  font-size: 14px;
-  text-shadow: 0 0 3px #ff66b3;
-  animation: pop 0.3s ease forwards;
-}
-
-@keyframes pop {
-  0% { transform: scale(0); opacity:0; }
-  100% { transform: scale(1); opacity:1; }
-}
-
-footer {
-  margin-top: 50px;
-  font-size: 12px;
-  color: #ff99cc;
-}
-
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Secret message */
-#secretMessage {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  font-size: 36px;
-  color: #ff4da6;
-  text-shadow: 0 0 20px #ff66b3,0 0 40px #ff99cc;
-  z-index: 5;
-  text-align: center;
-  animation: popMessage 1s forwards;
-}
-
-@keyframes popMessage {
-  0% { transform: translate(-50%, -50%) scale(0); opacity:0; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity:1; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity:1; }
+/* FIREWORKS */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:-1;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="confetti"></canvas>
+<!-- INTRO -->
+<div id="intro">🎉 Happy Birthday Abdullah 🎉</div>
+
+<!-- FIREWORK CANVAS -->
 <canvas id="fireworks"></canvas>
-<canvas id="cursorTrail"></canvas>
 
-<div class="container">
-  <h1>🎉 HAPPY BIRTHDAY TO ME 🎉</h1>
-  <div class="name">Mian Abdullah Suleman</div>
+<!-- MAIN CONTENT -->
+<div id="main">
+  <h1>🎂 Birthday Blast Mode Activated 🎂</h1>
 
-  <div id="countdown">⏳ Loading countdown...</div>
+  <div id="countdown"></div>
 
-  <p class="message">
-    Another year older. Another level unlocked 🚀<br>
-    IT Student | Future White Hat Hacker 💻
-  </p>
+  <button onclick="playMusic()">▶ Play Birthday Song</button>
 
-  <button onclick="playMusic()">▶ Play Birthday Music</button>
-
-  <div class="wish-box">
-    <h3>💌 Friends Birthday Wishes</h3>
-
-    <input type="text" id="name" placeholder="Your name">
-    <textarea id="wish" rows="3" placeholder="Your message"></textarea>
-    <button id="wishBtn" onclick="addWish()">Send Wish</button>
-
-    <div id="wishes"></div>
+  <!-- GIFS -->
+  <div class="gifs">
+    <iframe src="https://tenor.com/embed/26024877" width="220" height="220"></iframe>
+    <iframe src="https://tenor.com/embed/21439536" width="220" height="220"></iframe>
+    <iframe src="https://tenor.com/embed/18027439" width="220" height="220"></iframe>
   </div>
-
-  <footer>
-    © Birthday Blast Ultimate
-  </footer>
 </div>
 
-<div id="secretMessage">🎁 Surprise! Happy Birthday Abdullah! 🎁</div>
-
-<audio id="music">
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_6f1c0dfb43.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+<audio id="song" loop>
+  <source src="https://files.catbox.moe/4xj6n6.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* Countdown + Secret message + Fireworks */
-const birthday = new Date("February 20, 2026 00:00:00").getTime();
-const countdown = document.getElementById("countdown");
+/* MUSIC */
+function playMusic(){
+  document.getElementById("song").play();
+}
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = birthday - now;
-
-  if(diff <= 0){
-    countdown.innerHTML = "🎂 Today is my birthday!";
-    startFireworks();
-    showSecretMessage();
-    return;
-  }
-
-  const d = Math.floor(diff / (1000*60*60*24));
-  const h = Math.floor((diff/(1000*60*60))%24);
-  const m = Math.floor((diff/(1000*60))%60);
-  const s = Math.floor((diff/1000)%60);
-
-  countdown.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+/* COUNTDOWN */
+const target=new Date("Feb 20, 2026 00:00:00").getTime();
+setInterval(()=>{
+  let now=new Date().getTime();
+  let d=target-now;
+  let days=Math.floor(d/(1000*60*60*24));
+  let h=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  let m=Math.floor((d%(1000*60*60))/(1000*60));
+  let s=Math.floor((d%(1000*60))/1000);
+  document.getElementById("countdown").innerHTML=
+  `⏳ ${days}d ${h}h ${m}m ${s}s`;
 },1000);
 
-function playMusic(){
-  const audio=document.getElementById("music");
-  audio.volume=0.7;
-  audio.play();
+/* HEARTS + ROSES */
+function rain(symbol,className){
+  let el=document.createElement("div");
+  el.className=className;
+  el.innerHTML=symbol;
+  el.style.left=Math.random()*100+"vw";
+  el.style.animationDuration=(3+Math.random()*3)+"s";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),6000);
 }
+setInterval(()=>rain("❤️","heart"),300);
+setInterval(()=>rain("🌹","rose"),600);
 
-/* Wishes */
-function addWish(){
-  const name=document.getElementById("name").value.trim();
-  const wish=document.getElementById("wish").value.trim();
-  if(!name||!wish) return;
-
-  const data=JSON.parse(localStorage.getItem("wishes"))||[];
-  data.push({name,wish});
-  localStorage.setItem("wishes",JSON.stringify(data));
-
-  document.getElementById("name").value="";
-  document.getElementById("wish").value="";
-  showWishes();
-}
-
-function showWishes(){
-  const box=document.getElementById("wishes");
-  box.innerHTML="";
-  const data=JSON.parse(localStorage.getItem("wishes"))||[];
-  data.forEach(w=>{
-    const div=document.createElement("div");
-    div.className="wish-card";
-    div.innerHTML=`<strong>${w.name}</strong><br>${w.wish}`;
-    box.appendChild(div);
-  });
-}
-showWishes();
-
-/* Confetti + Hearts */
-const canvas=document.getElementById("confetti");
+/* FIREWORKS */
+const canvas=document.getElementById("fireworks");
 const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+canvas.width=innerWidth;
+canvas.height=innerHeight;
 let particles=[];
-for(let i=0;i<250;i++){
-  const isHeart=Math.random()<0.5;
-  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*4+2,d:Math.random()*3+1,color:`hsl(${Math.random()*360},80%,70%)`,type:isHeart?'heart':'circle'});
-}
-
-function drawParticle(p){
-  ctx.fillStyle=p.color;
-  ctx.beginPath();
-  if(p.type==='circle'){ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}
-  else{
-    const top=p.r;
-    ctx.moveTo(p.x,p.y);
-    ctx.bezierCurveTo(p.x,p.y-top,p.x-p.r,p.y-top,p.x-p.r,p.y);
-    ctx.bezierCurveTo(p.x-p.r,p.y+p.r,p.x,p.y+p.r+top,p.x,p.y+top*1.5);
-    ctx.bezierCurveTo(p.x,p.y+p.r+top,p.x+p.r,p.y+p.r,p.x+p.r,p.y);
-    ctx.bezierCurveTo(p.x+p.r,p.y-top,p.x,p.y-top,p.x,p.y);
-    ctx.fill();
+function boom(){
+  let x=Math.random()*canvas.width;
+  let y=Math.random()*canvas.height/2;
+  for(let i=0;i<50;i++){
+    particles.push({
+      x,y,
+      dx:(Math.random()-0.5)*5,
+      dy:(Math.random()-0.5)*5,
+      life:100
+    });
   }
 }
+setInterval(boom,1200);
 
-function animateConfetti(){
+function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    drawParticle(p);
-    p.y+=p.d;
-    if(p.y>canvas.height){ p.y=-10; p.x=Math.random()*canvas.width; }
+  particles.forEach((p,i)=>{
+    p.x+=p.dx;
+    p.y+=p.dy;
+    p.life--;
+    ctx.fillStyle=`rgba(255,77,109,${p.life/100})`;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,2,0,Math.PI*2);
+    ctx.fill();
+    if(p.life<=0)particles.splice(i,1);
   });
-  requestAnimationFrame(animateConfetti);
+  requestAnimationFrame(animate);
 }
-animateConfetti();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight});
-
-/* Fireworks */
-function startFireworks(){
-  const fwCanvas=document.getElementById("fireworks");
-  const fctx=fwCanvas.getContext("2d");
-  fwCanvas.width=window.innerWidth;
-  fwCanvas.height=window.innerHeight;
-
-  class Firework{
-    constructor(){
-      this.x=Math.random()*fwCanvas.width;
-      this.y=Math.random()*fwCanvas.height/2;
-      this.particles=[];
-      for(let i=0;i<30;i++){
-        const angle=Math.random()*2*Math.PI;
-        const speed=Math.random()*4+2;
-        this.particles.push({x:this.x,y:this.y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,color:`hsl(${Math.random()*360},80%,70%)`,alpha:1});
-      }
-    }
-    draw(){ this.particles.forEach(p=>{ fctx.fillStyle=p.color; fctx.globalAlpha=p.alpha; fctx.beginPath(); fctx.arc(p.x,p.y,3,0,Math.PI*2); fctx.fill(); p.x+=p.vx; p.y+=p.vy; p.alpha-=0.02; }); }
-  }
-
-  const fireworksArray=[];
-  for(let i=0;i<8;i++) fireworksArray.push(new Firework());
-  function animateFW(){ fctx.clearRect(0,0,fwCanvas.width,fwCanvas.height); fireworksArray.forEach(f=>f.draw()); requestAnimationFrame(animateFW);}
-  animateFW();
-}
-
-/* Secret Message */
-function showSecretMessage(){
-  const msg=document.getElementById("secretMessage");
-  msg.style.display="block";
-  msg.style.animation="popMessage 1s forwards";
-}
-
-/* Cursor Neon Trail */
-const trailCanvas=document.getElementById("cursorTrail");
-const tctx=trailCanvas.getContext("2d");
-trailCanvas.width=window.innerWidth;
-trailCanvas.height=window.innerHeight;
-let trails=[];
-document.addEventListener("mousemove",e=>{trails.push({x:e.clientX,y:e.clientY,alpha:1});});
-function animateTrail(){
-  tctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);
-  trails.forEach((t,i)=>{tctx.fillStyle=`rgba(255,77,166,${t.alpha})`; tctx.beginPath(); tctx.arc(t.x,t.y,5,0,Math.PI*2); tctx.fill(); t.alpha-=0.03; if(t.alpha<=0) trails.splice(i,1);});
-  requestAnimationFrame(animateTrail);
-}
-animateTrail();
-window.addEventListener("resize",()=>{trailCanvas.width=window.innerWidth; trailCanvas.height=window.innerHeight;});
+animate();
 </script>
 
 </body>
