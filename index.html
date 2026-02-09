@@ -22,6 +22,7 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+  text-align:center;
   font-size:2.4rem;
   font-weight:700;
   color:#ff4d6d;
@@ -66,9 +67,7 @@ button,.social a{
 }
 
 /* SOCIAL */
-.social{
-  margin-top:20px;
-}
+.social{margin-top:20px;}
 
 /* GIFS */
 .gifs{
@@ -91,7 +90,7 @@ button,.social a{
   background:rgba(255,77,109,0.1);
   border-radius:20px;
 }
-#wishes h2{color:#ffb3c6;}
+#wishes h2{color:#ffb3c6;margin-bottom:10px;}
 #wishes input,#wishes textarea{
   width:100%;
   padding:12px;
@@ -100,10 +99,16 @@ button,.social a{
   border:none;
 }
 .wish{
-  margin-top:12px;
+  margin-top:15px;
   padding:12px;
   background:rgba(255,255,255,0.1);
   border-radius:10px;
+  text-align:left;
+}
+.time{
+  font-size:0.8rem;
+  color:#ffb3c6;
+  margin-top:6px;
 }
 
 /* RAIN */
@@ -142,11 +147,9 @@ This isn’t just a birthday — it’s a legacy upgrade.”
 
 <button onclick="playMusic()">▶ Play Birthday Vibe</button>
 
-<!-- SOCIAL LINKS -->
 <div class="social">
-  <!-- CHANGE USERNAME / NUMBER -->
   <a href="https://instagram.com/your_instagram_username" target="_blank">📸 Instagram</a>
-  <a href="https://wa.me/923001234567?text=Happy%20Birthday%20Abdullah%20🔥🎉" target="_blank">💬 WhatsApp</a>
+  <a href="https://wa.me/923463084191?text=Happy%20Birthday%20Abdullah%20🔥🎉" target="_blank">💬 WhatsApp</a>
 </div>
 
 <div class="gifs">
@@ -170,26 +173,50 @@ This isn’t just a birthday — it’s a legacy upgrade.”
 </audio>
 
 <script>
-/* INTRO */
+/* INTRO REMOVE */
 setTimeout(()=>intro.style.display="none",3000);
 
 /* MUSIC */
 function playMusic(){song.play();}
 
-/* WISHES */
+/* LOAD WISHES */
+let wishes = JSON.parse(localStorage.getItem("wishes")) || [];
+const wishList = document.getElementById("wishList");
+wishes.forEach(w => renderWish(w));
+
+/* ADD WISH */
 function addWish(){
-  if(!name.value||!msg.value)return;
+  let n=name.value.trim();
+  let m=msg.value.trim();
+  if(!n||!m) return;
+
+  let now=new Date();
+  let wish={
+    name:n,
+    msg:m,
+    time:now.toLocaleString()
+  };
+
+  wishes.unshift(wish);
+  localStorage.setItem("wishes",JSON.stringify(wishes));
+  renderWish(wish);
+
+  name.value=""; msg.value="";
+}
+
+/* RENDER */
+function renderWish(w){
   let d=document.createElement("div");
   d.className="wish";
-  d.innerHTML=`<b>${name.value}</b><br>${msg.value}`;
+  d.innerHTML=`<b>${w.name}</b><br>${w.msg}<div class="time">📅 ${w.time}</div>`;
   wishList.prepend(d);
-  name.value="";msg.value="";
 }
 
 /* RAIN */
 function rain(s,c){
   let e=document.createElement("div");
-  e.className=c;e.innerHTML=s;
+  e.className=c;
+  e.innerHTML=s;
   e.style.left=Math.random()*100+"vw";
   e.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(e);
@@ -200,7 +227,8 @@ setInterval(()=>rain("🌹","rose"),800);
 
 /* FIREWORKS */
 const ctx=fireworks.getContext("2d");
-fireworks.width=innerWidth;fireworks.height=innerHeight;
+fireworks.width=innerWidth;
+fireworks.height=innerHeight;
 let p=[];
 setInterval(()=>{
   let x=Math.random()*fireworks.width,y=Math.random()*fireworks.height/2;
@@ -212,7 +240,9 @@ setInterval(()=>{
   p.forEach((o,i)=>{
     o.x+=o.dx;o.y+=o.dy;o.l--;
     ctx.fillStyle=`rgba(255,77,109,${o.l/100})`;
-    ctx.beginPath();ctx.arc(o.x,o.y,2,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();
+    ctx.arc(o.x,o.y,2,0,Math.PI*2);
+    ctx.fill();
     if(o.l<=0)p.splice(i,1);
   });
   requestAnimationFrame(anim);
