@@ -53,7 +53,7 @@ h1{
 }
 
 /* BUTTONS */
-button,.social a{
+button,.social a,.footer a{
   display:inline-block;
   margin:10px;
   padding:12px 28px;
@@ -127,12 +127,28 @@ canvas{
   inset:0;
   z-index:-1;
 }
+
+/* FOOTER */
+.footer{
+  margin-top:80px;
+  padding:30px 20px;
+  background:rgba(0,0,0,0.6);
+  border-top:1px solid rgba(255,77,109,0.4);
+  text-align:center;
+}
+.footer h3{
+  color:#ff6b81;
+  margin-bottom:10px;
+}
+.footer p{
+  font-size:0.9rem;
+  color:#ffc2d1;
+}
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
 <div id="intro">🎉 Happy Birthday Abdullah 🎉</div>
 
 <canvas id="fireworks"></canvas>
@@ -149,7 +165,6 @@ This isn’t just a birthday — it’s a legacy upgrade.”
 <button onclick="playMusic()">▶ Play Birthday Vibe</button>
 
 <div class="social">
-  <a href="https://instagram.com/your_instagram_username" target="_blank">📸 Instagram</a>
   <a href="https://wa.me/923463084191?text=Happy%20Birthday%20Abdullah%20🔥🎉" target="_blank">💬 WhatsApp</a>
 </div>
 
@@ -169,103 +184,75 @@ This isn’t just a birthday — it’s a legacy upgrade.”
 
 </div>
 
-<!-- 🎵 BIRTHDAY SONG (LOCAL) -->
+<!-- FOOTER -->
+<div class="footer">
+  <h3>Made with ❤️ by Abdullah Suleman</h3>
+  <p>Join My Official WhatsApp Channels</p>
+  <a href="https://whatsapp.com/channel/0029Vb5eufGInlqIVg1R3U0Z" target="_blank">🚀 ERRORX</a>
+  <a href="https://whatsapp.com/channel/0029Vb5isALI1rcah6CRXm3J" target="_blank">🔥 ErrorX 2.0</a>
+</div>
+
+<!-- AUDIO -->
 <audio id="song" loop preload="auto">
   <source src="koretskoFF_-_Happy_birthday_TRAP_REMIX_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🎆 FIREWORK SOUND -->
 <audio id="boom" preload="auto">
   <source src="https://files.catbox.moe/2k6l1c.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* INTRO REMOVE */
 setTimeout(()=>intro.style.display="none",3000);
-
-/* MUSIC */
 function playMusic(){song.play();}
 
-/* LOAD WISHES */
-let wishes = JSON.parse(localStorage.getItem("wishes")) || [];
-const wishList = document.getElementById("wishList");
-wishes.forEach(w => renderWish(w));
+let wishes=JSON.parse(localStorage.getItem("wishes"))||[];
+const wishList=document.getElementById("wishList");
+wishes.forEach(w=>renderWish(w));
 
-/* ADD WISH */
 function addWish(){
-  let n=name.value.trim();
-  let m=msg.value.trim();
-  if(!n||!m) return;
-
-  let wish={
-    name:n,
-    msg:m,
-    time:new Date().toLocaleString()
-  };
-
-  wishes.unshift(wish);
-  localStorage.setItem("wishes",JSON.stringify(wishes));
-  renderWish(wish);
-
-  name.value=""; msg.value="";
+ let n=name.value.trim(),m=msg.value.trim();
+ if(!n||!m)return;
+ let w={name:n,msg:m,time:new Date().toLocaleString()};
+ wishes.unshift(w);
+ localStorage.setItem("wishes",JSON.stringify(wishes));
+ renderWish(w);
+ name.value="";msg.value="";
 }
-
-/* RENDER */
 function renderWish(w){
-  let d=document.createElement("div");
-  d.className="wish";
-  d.innerHTML=`<b>${w.name}</b><br>${w.msg}<div class="time">📅 ${w.time}</div>`;
-  wishList.prepend(d);
+ let d=document.createElement("div");
+ d.className="wish";
+ d.innerHTML=`<b>${w.name}</b><br>${w.msg}<div class="time">📅 ${w.time}</div>`;
+ wishList.prepend(d);
 }
 
-/* RAIN */
 function rain(s,c){
-  let e=document.createElement("div");
-  e.className=c;
-  e.innerHTML=s;
-  e.style.left=Math.random()*100+"vw";
-  e.style.animationDuration=(3+Math.random()*4)+"s";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),7000);
+ let e=document.createElement("div");
+ e.className=c;e.innerHTML=s;
+ e.style.left=Math.random()*100+"vw";
+ e.style.animationDuration=(3+Math.random()*4)+"s";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),7000);
 }
 setInterval(()=>rain("❤️","heart"),400);
 setInterval(()=>rain("🌹","rose"),800);
 
-/* FIREWORKS + SOUND */
 const ctx=fireworks.getContext("2d");
-fireworks.width=innerWidth;
-fireworks.height=innerHeight;
+fireworks.width=innerWidth;fireworks.height=innerHeight;
 let p=[];
-
 setInterval(()=>{
-  let x=Math.random()*fireworks.width;
-  let y=Math.random()*fireworks.height/2;
-  boom.currentTime=0;
-  boom.play();
-
-  for(let i=0;i<60;i++){
-    p.push({
-      x,y,
-      dx:(Math.random()-0.5)*6,
-      dy:(Math.random()-0.5)*6,
-      l:100
-    });
-  }
+ let x=Math.random()*fireworks.width,y=Math.random()*fireworks.height/2;
+ boom.currentTime=0;boom.play();
+ for(let i=0;i<60;i++)p.push({x,y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,l:100});
 },1500);
-
 (function anim(){
-  ctx.clearRect(0,0,fireworks.width,fireworks.height);
-  p.forEach((o,i)=>{
-    o.x+=o.dx;
-    o.y+=o.dy;
-    o.l--;
-    ctx.fillStyle=`rgba(255,77,109,${o.l/100})`;
-    ctx.beginPath();
-    ctx.arc(o.x,o.y,2,0,Math.PI*2);
-    ctx.fill();
-    if(o.l<=0)p.splice(i,1);
-  });
-  requestAnimationFrame(anim);
+ ctx.clearRect(0,0,fireworks.width,fireworks.height);
+ p.forEach((o,i)=>{
+  o.x+=o.dx;o.y+=o.dy;o.l--;
+  ctx.fillStyle=`rgba(255,77,109,${o.l/100})`;
+  ctx.beginPath();ctx.arc(o.x,o.y,2,0,Math.PI*2);ctx.fill();
+  if(o.l<=0)p.splice(i,1);
+ });
+ requestAnimationFrame(anim);
 })();
 </script>
 
