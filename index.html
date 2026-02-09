@@ -64,7 +64,9 @@ button,.social a,.footer a{
   box-shadow:0 0 15px #ff4d6d;
   border:none;
   cursor:pointer;
+  transition:0.3s;
 }
+button:hover,.social a:hover,.footer a:hover{transform:scale(1.05);}
 
 /* SOCIAL */
 .social{margin-top:20px;}
@@ -170,22 +172,20 @@ This isn’t just a birthday — it’s a legacy upgrade.”
     Wish me on WhatsApp 💬
   </div>
 
-  <a href="https://wa.me/923463084191?text=Happy%20Birthday%20Abdullah%20🔥🎉"
-     target="_blank">
-     💚 WhatsApp
+  <a href="https://wa.me/923463084191?text=Happy%20Birthday%20Abdullah%20🔥🎉" target="_blank">
+    💚 WhatsApp
   </a>
 
   <div style="margin-top:20px;font-size:1.1rem;color:#ffc2d1;">
     Or connect on Instagram 📸
   </div>
 
-  <a href="https://instagram.com/mas17264"
-     target="_blank"
-     style="background:#d62976;box-shadow:0 0 15px #d62976;">
-     📷 @mas17264
+  <a href="https://instagram.com/mas17264" target="_blank" style="background:#d62976;box-shadow:0 0 15px #d62976;">
+    📷 @mas17264
   </a>
 
 </div>
+
 <div class="gifs">
   <img src="https://media.giphy.com/media/26FPJGjhefSJuaRhu/giphy.gif">
   <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
@@ -200,49 +200,63 @@ This isn’t just a birthday — it’s a legacy upgrade.”
   <div id="wishList"></div>
 </div>
 
-</div>
-
-<!-- FOOTER -->
+<!-- Footer -->
 <div class="footer">
   <h3>Made with ❤️ by Abdullah Suleman</h3>
   <p>Join My Official WhatsApp Channels</p>
   <a href="https://whatsapp.com/channel/0029Vb5eufGInlqIVg1R3U0Z" target="_blank">🚀 ERRORX</a>
   <a href="https://whatsapp.com/channel/0029Vb5isALI1rcah6CRXm3J" target="_blank">🔥 ErrorX 2.0</a>
+
+  <!-- QR Example -->
+  <div style="margin-top:20px;">
+    <h3 style="color:#ff6b81;">Scan Me! 🎉</h3>
+    <img src="qr-birthday.png" alt="Birthday QR" style="width:200px;border-radius:16px;box-shadow:0 0 20px #ff4d6d;">
+  </div>
 </div>
 
-<!-- AUDIO -->
+<!-- Birthday Song -->
 <audio id="song" loop preload="auto">
   <source src="koretskoFF_-_Happy_birthday_TRAP_REMIX_(mp3.pm).mp3" type="audio/mpeg">
 </audio>
 
+<!-- Firework Sound -->
 <audio id="boom" preload="auto">
   <source src="https://files.catbox.moe/2k6l1c.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+/* INTRO REMOVE */
 setTimeout(()=>intro.style.display="none",3000);
+
+/* MUSIC */
 function playMusic(){song.play();}
 
+/* WISHES */
 let wishes=JSON.parse(localStorage.getItem("wishes"))||[];
 const wishList=document.getElementById("wishList");
-wishes.forEach(w=>renderWish(w));
+wishes.forEach(w=>renderWish(w,false));
 
 function addWish(){
- let n=name.value.trim(),m=msg.value.trim();
- if(!n||!m)return;
+ let n=document.getElementById("name").value.trim();
+ let m=document.getElementById("msg").value.trim();
+ if(!n||!m) return;
  let w={name:n,msg:m,time:new Date().toLocaleString()};
  wishes.unshift(w);
  localStorage.setItem("wishes",JSON.stringify(wishes));
- renderWish(w);
- name.value="";msg.value="";
+ renderWish(w,true);
+ document.getElementById("name").value="";
+ document.getElementById("msg").value="";
 }
-function renderWish(w){
+
+function renderWish(w,prepend=true){
  let d=document.createElement("div");
  d.className="wish";
  d.innerHTML=`<b>${w.name}</b><br>${w.msg}<div class="time">📅 ${w.time}</div>`;
- wishList.prepend(d);
+ if(prepend) wishList.prepend(d);
+ else wishList.appendChild(d);
 }
 
+/* RAIN */
 function rain(s,c){
  let e=document.createElement("div");
  e.className=c;e.innerHTML=s;
@@ -254,20 +268,26 @@ function rain(s,c){
 setInterval(()=>rain("❤️","heart"),400);
 setInterval(()=>rain("🌹","rose"),800);
 
+/* FIREWORKS + SOUND */
 const ctx=fireworks.getContext("2d");
 fireworks.width=innerWidth;fireworks.height=innerHeight;
 let p=[];
 setInterval(()=>{
- let x=Math.random()*fireworks.width,y=Math.random()*fireworks.height/2;
+ let x=Math.random()*fireworks.width;
+ let y=Math.random()*fireworks.height/2;
  boom.currentTime=0;boom.play();
- for(let i=0;i<60;i++)p.push({x,y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,l:100});
+ for(let i=0;i<60;i++)
+   p.push({x,y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,l:100});
 },1500);
+
 (function anim(){
  ctx.clearRect(0,0,fireworks.width,fireworks.height);
  p.forEach((o,i)=>{
   o.x+=o.dx;o.y+=o.dy;o.l--;
   ctx.fillStyle=`rgba(255,77,109,${o.l/100})`;
-  ctx.beginPath();ctx.arc(o.x,o.y,2,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();
+  ctx.arc(o.x,o.y,2,0,Math.PI*2);
+  ctx.fill();
   if(o.l<=0)p.splice(i,1);
  });
  requestAnimationFrame(anim);
