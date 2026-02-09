@@ -2,23 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Blast – Abdullah 🔥</title>
+<title>Birthday Blast | Abdullah 🔥</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{
-  background: radial-gradient(circle at top, #2b0000, #000);
-  color:white;
-  overflow-y:auto; /* SCROLL FIX */
-  min-height:100vh;
+  background:linear-gradient(to bottom,#1a0000,#000);
+  color:#fff;
+  overflow-x:hidden;
 }
 
 /* INTRO */
@@ -28,83 +22,99 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:2.8rem;
+  font-size:2.4rem;
   font-weight:700;
   color:#ff4d6d;
   background:black;
-  z-index:9999;
-  animation:introFade 3.5s forwards;
-}
-@keyframes introFade{
-  0%{opacity:1}
-  70%{opacity:1}
-  100%{opacity:0;visibility:hidden}
+  z-index:999;
 }
 
-/* MAIN */
-#main{
-  opacity:0;
-  animation:showMain 1s forwards;
-  animation-delay:3.6s;
-  padding-bottom:100px;
-}
-@keyframes showMain{
-  to{opacity:1}
+/* CONTAINER */
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:40px 20px;
+  text-align:center;
 }
 
+/* HEADINGS */
 h1{
-  margin-top:50px;
-  font-size:2.4rem;
+  margin-top:40px;
+  font-size:2.3rem;
   color:#ff6b81;
-  text-shadow:0 0 25px #ff4d6d;
+  text-shadow:0 0 20px #ff4d6d;
 }
-
 .quote{
   margin:20px auto;
   max-width:700px;
   font-size:1.1rem;
   color:#ffc2d1;
-  font-style:italic;
 }
 
-/* BUTTON */
-button{
+/* BUTTONS */
+button,.social a{
+  display:inline-block;
+  margin:10px;
   padding:12px 28px;
-  margin:25px;
-  border:none;
   border-radius:30px;
   background:#ff4d6d;
   color:white;
-  font-size:1rem;
+  text-decoration:none;
+  box-shadow:0 0 15px #ff4d6d;
+  border:none;
   cursor:pointer;
-  box-shadow:0 0 20px #ff4d6d;
+}
+
+/* SOCIAL */
+.social{
+  margin-top:20px;
 }
 
 /* GIFS */
 .gifs{
   display:flex;
   justify-content:center;
-  flex-wrap:wrap;
   gap:20px;
+  flex-wrap:wrap;
   margin-top:30px;
 }
 .gifs img{
   width:220px;
-  border-radius:18px;
-  box-shadow:0 0 20px #ff4d6d;
+  border-radius:16px;
+  box-shadow:0 0 15px #ff4d6d;
+}
+
+/* WISH SECTION */
+#wishes{
+  margin-top:60px;
+  padding:30px;
+  background:rgba(255,77,109,0.1);
+  border-radius:20px;
+}
+#wishes h2{color:#ffb3c6;}
+#wishes input,#wishes textarea{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:10px;
+  border:none;
+}
+.wish{
+  margin-top:12px;
+  padding:12px;
+  background:rgba(255,255,255,0.1);
+  border-radius:10px;
 }
 
 /* RAIN */
 .heart,.rose{
   position:fixed;
   top:-10%;
-  animation:fall linear infinite;
   font-size:22px;
-  z-index:1;
+  animation:fall linear infinite;
+  pointer-events:none;
 }
-@keyframes fall{
-  to{transform:translateY(120vh)}
-}
+@keyframes fall{to{transform:translateY(120vh)}}
 
 /* FIREWORKS */
 canvas{
@@ -117,87 +127,96 @@ canvas{
 
 <body>
 
-<!-- INTRO -->
 <div id="intro">🎉 Happy Birthday Abdullah 🎉</div>
 
 <canvas id="fireworks"></canvas>
 
-<div id="main">
-  <h1>🔥 Birthday Season Begins 🔥</h1>
+<div class="container">
 
-  <div class="quote">
-    "Born to stand out, not to fit in.  
-    This isn’t just a birthday — it’s a legacy upgrade."
-  </div>
+<h1>🔥 Birthday Season Begins 🔥</h1>
 
-  <button onclick="playMusic()">▶ Play Birthday Vibe</button>
-
-  <!-- GIFS (GITHUB SAFE) -->
-  <div class="gifs">
-    <img src="https://media.giphy.com/media/3oz8xRF0v9WMAUVLNK/giphy.gif">
-    <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
-    <img src="https://media.giphy.com/media/26FPJGjhefSJuaRhu/giphy.gif">
-  </div>
+<div class="quote">
+“Born to stand out, not to fit in.  
+This isn’t just a birthday — it’s a legacy upgrade.”
 </div>
 
-<!-- MUSIC -->
+<button onclick="playMusic()">▶ Play Birthday Vibe</button>
+
+<!-- SOCIAL LINKS -->
+<div class="social">
+  <!-- CHANGE USERNAME / NUMBER -->
+  <a href="https://instagram.com/your_instagram_username" target="_blank">📸 Instagram</a>
+  <a href="https://wa.me/923001234567?text=Happy%20Birthday%20Abdullah%20🔥🎉" target="_blank">💬 WhatsApp</a>
+</div>
+
+<div class="gifs">
+  <img src="https://media.giphy.com/media/26FPJGjhefSJuaRhu/giphy.gif">
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+  <img src="https://media.giphy.com/media/3oz8xRF0v9WMAUVLNK/giphy.gif">
+</div>
+
+<div id="wishes">
+  <h2>💌 Leave a Birthday Wish</h2>
+  <input id="name" placeholder="Your Name">
+  <textarea id="msg" placeholder="Your Wish"></textarea>
+  <button onclick="addWish()">Send Wish</button>
+  <div id="wishList"></div>
+</div>
+
+</div>
+
 <audio id="song" loop>
-  <source src="https://files.catbox.moe/4xj6n6.mp3" type="audio/mpeg">
+  <source src="https://files.catbox.moe/4xj6n6.mp3">
 </audio>
 
 <script>
-function playMusic(){
-  document.getElementById("song").play();
+/* INTRO */
+setTimeout(()=>intro.style.display="none",3000);
+
+/* MUSIC */
+function playMusic(){song.play();}
+
+/* WISHES */
+function addWish(){
+  if(!name.value||!msg.value)return;
+  let d=document.createElement("div");
+  d.className="wish";
+  d.innerHTML=`<b>${name.value}</b><br>${msg.value}`;
+  wishList.prepend(d);
+  name.value="";msg.value="";
 }
 
 /* RAIN */
-function rain(symbol,cls){
+function rain(s,c){
   let e=document.createElement("div");
-  e.className=cls;
-  e.innerHTML=symbol;
+  e.className=c;e.innerHTML=s;
   e.style.left=Math.random()*100+"vw";
   e.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(e);
   setTimeout(()=>e.remove(),7000);
 }
-setInterval(()=>rain("❤️","heart"),350);
-setInterval(()=>rain("🌹","rose"),700);
+setInterval(()=>rain("❤️","heart"),400);
+setInterval(()=>rain("🌹","rose"),800);
 
 /* FIREWORKS */
-const c=document.getElementById("fireworks");
-const ctx=c.getContext("2d");
-c.width=innerWidth;
-c.height=innerHeight;
+const ctx=fireworks.getContext("2d");
+fireworks.width=innerWidth;fireworks.height=innerHeight;
 let p=[];
-function blast(){
-  let x=Math.random()*c.width;
-  let y=Math.random()*c.height/2;
-  for(let i=0;i<60;i++){
-    p.push({
-      x,y,
-      dx:(Math.random()-0.5)*6,
-      dy:(Math.random()-0.5)*6,
-      life:100
-    });
-  }
-}
-setInterval(blast,1300);
-
-function anim(){
-  ctx.clearRect(0,0,c.width,c.height);
+setInterval(()=>{
+  let x=Math.random()*fireworks.width,y=Math.random()*fireworks.height/2;
+  for(let i=0;i<50;i++)
+    p.push({x,y,dx:(Math.random()-0.5)*6,dy:(Math.random()-0.5)*6,l:100});
+},1300);
+(function anim(){
+  ctx.clearRect(0,0,fireworks.width,fireworks.height);
   p.forEach((o,i)=>{
-    o.x+=o.dx;
-    o.y+=o.dy;
-    o.life--;
-    ctx.fillStyle=`rgba(255,77,109,${o.life/100})`;
-    ctx.beginPath();
-    ctx.arc(o.x,o.y,2,0,Math.PI*2);
-    ctx.fill();
-    if(o.life<=0)p.splice(i,1);
+    o.x+=o.dx;o.y+=o.dy;o.l--;
+    ctx.fillStyle=`rgba(255,77,109,${o.l/100})`;
+    ctx.beginPath();ctx.arc(o.x,o.y,2,0,Math.PI*2);ctx.fill();
+    if(o.l<=0)p.splice(i,1);
   });
   requestAnimationFrame(anim);
-}
-anim();
+})();
 </script>
 
 </body>
